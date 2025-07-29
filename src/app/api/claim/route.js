@@ -23,9 +23,6 @@ export async function POST(request) {
             return NextResponse.json({ message: 'User not found' }, { status: 404 });
         }
 
-        // --- REAL-TIME UPDATE ---
-        // Instead of calling Pusher, we now fetch our own internal socket API route.
-        // We don't need to wait for this to finish.
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/socket`, { method: 'POST' });
         
         return NextResponse.json({

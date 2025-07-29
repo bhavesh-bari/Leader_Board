@@ -93,12 +93,11 @@ function LeaderBoard() {
 
     return (
         <div className="bg-white p-4 sm:p-6 font-sans rounded-2xl shadow-xl">
-            <h1 className='text-3xl font-bold mb-6 text-center text-gray-800'>Party Ranking</h1>
+            <h1 className='text-3xl font-bold mb-6 text-center text-gray-800'>Game Ranking</h1>
             <div className="flex justify-around items-end px-2 pt-8 mb-6">
                 {topThree.map((user) => (
                     <div key={user._id} className={`w-1/3 flex flex-col items-center transition-transform duration-300 ${getPodiumOrderAndStyle(user.rank)}`}>
                         <div className="relative">
-                            {user.rank === 1 && <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-4xl">👑</span>}
                             <Image src={user.imageUrl} alt={`${user.name}'s avatar`} width={user.rank === 1 ? 80 : 70} height={user.rank === 1 ? 80 : 70} className={`rounded-full object-cover border-4 ${getBorderColor(user.rank)}`} />
                             <div className={`absolute -bottom-3 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full text-white font-bold flex items-center justify-center border-2 border-white ${getBorderColor(user.rank)} bg-gray-700`}>{user.rank}</div>
                         </div>

@@ -1,4 +1,4 @@
-// src/app/auth/page.jsx
+
 'use client';
 
 import React, { useState } from 'react';
@@ -15,7 +15,6 @@ function AuthPage() {
     const [imageFile, setImageFile] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
 
-    // State for API feedback
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 

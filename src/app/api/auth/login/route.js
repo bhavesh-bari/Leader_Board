@@ -10,28 +10,25 @@ export async function POST(request) {
   try {
     const { email, password } = await request.json();
 
-    // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
       return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
     }
 
-    // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
     }
 
-    // Create JWT payload
     const payload = {
       user: {
         id: user.id,
       },
     };
 
-    // Sign the token
+
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: '7d', // Token expires in 7 days
+      expiresIn: '1d', 
     });
 
     const userResponse = {

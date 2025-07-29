@@ -4,7 +4,6 @@ import User from '../../../../models/userModel';
 import bcrypt from 'bcryptjs';
 import { v2 as cloudinary } from 'cloudinary';
 
-// Configure Cloudinary
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
   api_key: process.env.CLOUDINARY_API_KEY, 
@@ -21,14 +20,13 @@ export async function POST(request) {
     const password = formData.get('password');
     const imageFile = formData.get('imageFile');
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return NextResponse.json({ message: 'User with this email already exists' }, { status: 409 });
     }
     
     let imageUrl = '';
-    // Handle image upload if a file is provided
+ 
     if (imageFile) {
         const fileBuffer = await imageFile.arrayBuffer();
         const mime = imageFile.type;
@@ -42,7 +40,6 @@ export async function POST(request) {
         imageUrl = result.secure_url;
     }
 
-    // Hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -51,7 +48,7 @@ export async function POST(request) {
       name,
       email,
       password: hashedPassword,
-      imageUrl: imageUrl || undefined, // Use uploaded image or default from schema
+      imageUrl: imageUrl || undefined, 
     });
 
     await newUser.save();

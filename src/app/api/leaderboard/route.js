@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '../../../lib/dbConnect';
 import User from '../../../models/userModel';
-import { validateJWT } from '../validateJWT'; // Import your JWT helper
+import { validateJWT } from '../validateJWT'; 
 
 export async function GET(request) {
     await dbConnect();
 
     try {
-        // 1. Fetch and create the full leaderboard list (same as before)
+       
         const users = await User.find({})
             .sort({ totalPoints: -1, name: 1 })
             .select('name totalPoints imageUrl');
@@ -29,32 +29,31 @@ export async function GET(request) {
             };
         });
 
-        // 2. Check for a valid token to identify the current user
         let currentUserData = null;
         try {
-            const userId = validateJWT(request); // This will throw an error if token is invalid
+            const userId = validateJWT(request); 
             if (userId) {
-                // Find the current user within the leaderboard array we just created
+                
                 const foundUser = leaderboard.find(user => user._id.toString() === userId);
                 
                 if (foundUser) {
                     currentUserData = {
                         rank: foundUser.rank,
                         totalPoints: foundUser.totalPoints,
-                        // You can add more fields here if needed
+                       
                     };
                 }
             }
         } catch (error) {
-            // This is not a critical error; it just means no user is logged in.
-            // We can proceed without current user data.
+            console.error("JWT validation failed:", error.message);
+            
         }
 
-        // 3. Send the response with both the leaderboard and current user data
+       
         return NextResponse.json({
             success: true,
             leaderboard,
-            currentUserData, // This will be the user's data or null
+            currentUserData, 
         });
 
     } catch (error) {

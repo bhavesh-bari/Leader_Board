@@ -6,23 +6,24 @@ import Image from 'next/image';
 function Claim() {
 
     const users = [
-        { id: 1, name: 'Chhatrapati Shivaji', imageUrl: 'https://i.pravatar.cc/150?u=shivaji' },
-        { id: 2, name: 'Maharana Pratap', imageUrl: 'https://i.pravatar.cc/150?u=pratap' },
-        { id: 3, name: 'Raja Raja Chola I', imageUrl: 'https://i.pravatar.cc/150?u=chola' },
-        { id: 4, name: 'Krishnadevaraya', imageUrl: 'https://i.pravatar.cc/150?u=krishnadevaraya' },
-        { id: 5, name: 'Samudragupta', imageUrl: 'https://i.pravatar.cc/150?u=samudragupta' },
-        { id: 6, name: 'Chandragupta Maurya', imageUrl: 'https://i.pravatar.cc/150?u=maurya' },
-        { id: 7, name: 'Harshavardhana', imageUrl: 'https://i.pravatar.cc/150?u=harsha' },
-        { id: 8, name: 'Ashoka the Great', imageUrl: 'https://i.pravatar.cc/150?u=ashoka' },
-        { id: 9, name: 'Prithviraj Chauhan', imageUrl: 'https://i.pravatar.cc/150?u=chauhan' },
-        { id: 10, name: 'Ranjit Singh', imageUrl: 'https://i.pravatar.cc/150?u=ranjit' },
+        { id: 1, name: 'Aarav Sharma', imageUrl: 'https://i.pravatar.cc/150?u=aarav' },
+        { id: 2, name: 'Isha Verma', imageUrl: 'https://i.pravatar.cc/150?u=isha' },
+        { id: 3, name: 'Rohan Mehta', imageUrl: 'https://i.pravatar.cc/150?u=rohan' },
+        { id: 4, name: 'Priya Kapoor', imageUrl: 'https://i.pravatar.cc/150?u=priya' },
+        { id: 5, name: 'Vivaan Deshmukh', imageUrl: 'https://i.pravatar.cc/150?u=vivaan' },
+        { id: 6, name: 'Diya Nair', imageUrl: 'https://i.pravatar.cc/150?u=diya' },
+        { id: 7, name: 'Kabir Rao', imageUrl: 'https://i.pravatar.cc/150?u=kabir' },
+        { id: 8, name: 'Ananya Joshi', imageUrl: 'https://i.pravatar.cc/150?u=ananya' },
+        { id: 9, name: 'Aryan Bhatia', imageUrl: 'https://i.pravatar.cc/150?u=aryan' },
+        { id: 10, name: 'Sneha Kulkarni', imageUrl: 'https://i.pravatar.cc/150?u=sneha' },
     ];
+
 
     const [popup, setPopup] = useState({ visible: false, user: null, points: 0 });
     const [loadingUserId, setLoadingUserId] = useState(null);
     const [apiError, setApiError] = useState(null);
 
-    
+
     const handleClaimClick = async (user) => {
         setLoadingUserId(user.id);
         setApiError(null);
@@ -49,7 +50,7 @@ function Claim() {
                 throw new Error(data.message || 'Failed to claim points.');
             }
 
-            
+
             setPopup({
                 visible: true,
                 user: user,
