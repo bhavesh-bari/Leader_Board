@@ -1,103 +1,66 @@
-import Image from "next/image";
+import Claim from "./componets/Claim";
+import LeaderBoard from './componets/LeaderBoard';
+import History from './componets/History';
+const top15Users = [
+  { _id: 'user2', name: 'Kamal', totalPoints: 120, rank: 1, imageUrl: 'https://i.pravatar.cc/150?u=user2' },
+  { _id: 'user1', name: 'Rahul', totalPoints: 100, rank: 2, imageUrl: 'https://i.pravatar.cc/150?u=user1' },
+  { _id: 'user3', name: 'Sanaka', totalPoints: 90, rank: 3, imageUrl: 'https://i.pravatar.cc/150?u=user3' },
+  { _id: 'user5', name: 'Priya', totalPoints: 80, rank: 4, imageUrl: 'https://i.pravatar.cc/150?u=user5' },
+  { _id: 'user6', name: 'Vikram', totalPoints: 78, rank: 5, imageUrl: 'https://i.pravatar.cc/150?u=user6' },
+  { _id: 'user7', name: 'Anika', totalPoints: 75, rank: 6, imageUrl: 'https://i.pravatar.cc/150?u=user7' },
+  { _id: 'user8', name: 'Rohan', totalPoints: 72, rank: 7, imageUrl: 'https://i.pravatar.cc/150?u=user8' },
+  { _id: 'user9', name: 'Isha', totalPoints: 68, rank: 8, imageUrl: 'https://i.pravatar.cc/150?u=user9' },
+  { _id: 'user10', name: 'Arjun', totalPoints: 65, rank: 9, imageUrl: 'https://i.pravatar.cc/150?u=user10' },
+  { _id: 'user11', name: 'Diya', totalPoints: 61, rank: 10, imageUrl: 'https://i.pravatar.cc/150?u=user11' },
+  { _id: 'user12', name: 'Kabir', totalPoints: 59, rank: 11, imageUrl: 'https://i.pravatar.cc/150?u=user12' },
+  { _id: 'user13', name: 'Zara', totalPoints: 55, rank: 12, imageUrl: 'https://i.pravatar.cc/150?u=user13' },
+  { _id: 'user14', name: 'Neil', totalPoints: 52, rank: 13, imageUrl: 'https://i.pravatar.cc/150?u=user14' },
+  { _id: 'user15', name: 'Saanvi', totalPoints: 50, rank: 14, imageUrl: 'https://i.pravatar.cc/150?u=user15' },
+  { _id: 'user16', name: 'Advik', totalPoints: 48, rank: 15, imageUrl: 'https://i.pravatar.cc/150?u=user16' },
+];
+// This sample data would come from your component's props
+const sampleHistory = [
+  // Today's events
+  { 
+    _id: 'hist1', 
+    pointsClaimed: 8,
+    fromUser: { _id: 'user2', name: 'Kamal', imageUrl: 'https://i.pravatar.cc/150?u=user2' },
+    timestamp: '2025-07-28T14:30:00Z' // Today
+  },
+  { 
+    _id: 'hist2', 
+    pointsClaimed: 3,
+    fromUser: { _id: 'user5', name: 'Priya', imageUrl: 'https://i.pravatar.cc/150?u=user5' },
+    timestamp: '2025-07-28T09:15:00Z' // Today
+  },
+  // Yesterday's events
+  { 
+    _id: 'hist3', 
+    pointsClaimed: 10,
+    fromUser: { _id: 'user1', name: 'Rahul', imageUrl: 'https://i.pravatar.cc/150?u=user1' },
+    timestamp: '2025-07-27T18:00:00Z' // Yesterday
+  },
+  // Older events
+  { 
+    _id: 'hist4', 
+    pointsClaimed: 5,
+    fromUser: { _id: 'user7', name: 'Vikram', imageUrl: 'https://i.pravatar.cc/150?u=user7' },
+    timestamp: '2025-07-26T11:45:00Z' // An older date
+  },
+  
+];
+const currentUserData = { 
+  _id: 'user99', 
+  name: 'Meera', 
+  totalPoints: 15, 
+  rank: 99,
+  imageUrl: 'https://i.pravatar.cc/150?u=user99' 
+};
 
-export default function Home() {
+export default function MyLeaderboardPage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    <div>
+      <History historyData={sampleHistory} />
     </div>
   );
 }
