@@ -3,30 +3,26 @@ const { parse } = require('url');
 const next = require('next');
 const { Server } = require('socket.io');
 
-// --- FIX: These lines were missing ---
 const dev = process.env.NODE_ENV !== 'production';
-const hostname = 'localhost';
-const port = 3000;
-// ------------------------------------
+// --- CHANGES FOR DEPLOYMENT ---
+const hostname = '0.0.0.0';
+const port = process.env.PORT || 3000;
+// ------------------------------
 
-const app = next({ dev, hostname, port });
+const app = next({ dev }); // hostname and port are not needed here
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
     const httpServer = createServer((req, res) => {
         const parsedUrl = parse(req.url, true);
         
-        // This special route will be handled by our server to trigger socket events
         if (parsedUrl.pathname === '/api/socket' && req.method === 'POST') {
-            // We'll emit the event to all connected clients
             io.emit('update-event', { message: 'Leaderboard has been updated!' });
-            
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ success: true, message: 'Socket event emitted' }));
             return;
         }
 
-        // For all other routes, let Next.js handle it
         handle(req, res, parsedUrl);
     });
   
@@ -39,7 +35,7 @@ app.prepare().then(() => {
         });
     });
 
-    httpServer.listen(port, (err) => {
+    httpServer.listen(port, hostname, (err) => {
         if (err) throw err;
         console.log(`> Ready on http://${hostname}:${port}`);
     });
